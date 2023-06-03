@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="bootstrap.css">
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript">
+        function validate() {
+            var pwd1 = document.getElementById("password").value;
+            var pwd2 = document.getElementById("confirmPassword").value;
+            if (pwd1 == pwd2) {
+                document.getElementById("tishi1").innerHTML = "<font color='green'>两次密码相同</font>";
+                document.getElementById("button").disabled = false;
+            }
+            else {
+                document.getElementById("tishi1").innerHTML = "<font color='red'>两次密码不一致</font>";
+                document.getElementById("button").disabled = true;
+            }
+        }
+    </script>
+    <style type="text/css">
+        #image {
+            height: 40px;
+            width: 90px;
+            border: 2px solid darkgray;
+            margin-left: 10px;
+            text-align: center;
+            font-size: larger;
+            line-height: 40px;
+        }
+
+        .fl {
+            float: left;
+        }
+
+        #in {
+            margin-top: 5px;
+            height: 30px;
+        }
+
+        #change {
+            position: relative;
+            top: 20px;
+            left: 5px;
+            text-decoration: none;
+
+        }
+
+        #button {
+            margin-top: 20px;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <!--头部-->
+    <div class="header">
+        <div class="container">
+            <nav class="navbar navbar-default" role="navigation">
+                <!--navbar-header-->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"></div>
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="./蛋糕商城.html">首页</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            商品分类<b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu multi-column columns-2">
+                            <li>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <h4>商品分类</h4>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">热销</a>
+                    </li>
+                    <li>
+                        <a href="#">新品</a>
+                    </li>
+                    <li>
+                        <a href="#">注册</a>
+                    </li>
+                    <li>
+                        <a href="#">登录</a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="header-info">
+                <div class="header-right search-box">
+                    <a href="#">
+                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                    </a>
+                    <div class="search">
+                        <form class="navbar-form">
+                            <input type="text" class="form-control" name="keyword">
+                            <button type="submit" class="btn btn-default" aria-label="Left Align">搜索</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="header-right cart">
+                    <a href="#">
+                        <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--内容-->
+    <div class="accout"></div>
+    <div class="container">
+        <div class="register">
+            <form method="post">
+                <div class="register-top-grid">
+                    <h3>注册新用户</h3>
+                    <div class="input">
+                        <span>
+                            用户名<label style="color: red">*</label>
+                        </span>
+                        <input type="text" name="username" placeholder="请输入用户名" required>
+                    </div>
+
+                    <div class="input">
+                        <span>
+                            密码<label style="color: red">*</label>
+                        </span>
+                        <input type="password" name="username" id="password" placeholder="请输入密码" required>
+                    </div>
+                    <div class="input">
+                        <span>
+                            请再次输入密码<label style="color: red">*</label>
+                        </span>
+                        <input type="text" name="username" id="confirmPassword" placeholder="请输入密码" required
+                            onblur="validate()"><span id="tishi1"></span>
+                    </div>
+                    <div class="input">
+                        <span>
+                            邮箱<label style="color: red">*</label>
+                        </span>
+                        <input type="text" name="username" placeholder="请输入邮箱" required>
+                    </div>
+                    <div class="input">
+                        <span>
+                            收件人<!--<label style="color: red">*</label>-->
+                        </span>
+                        <input type="text" name="username" placeholder="请输入收件人">
+                    </div>
+                    <div class="input">
+                        <span>
+                            咨询电话<!--<label style="color: red">*</label>-->
+                        </span>
+                        <input type="text" name="username" placeholder="请输入咨询电话">
+                    </div>
+                    <div class="input">
+                        <span>
+                            收货地址<!--<label style="color: red">*</label>-->
+                        </span>
+                        <input type="text" name="username" placeholder="请输入收货地址">
+                    </div>
+                    <span class="fl"><input type="text" placeholder="请输入图片中的验证码" id="in" /></span>
+                    <span class="fl">
+                        <div id="image"></div>
+                    </span>
+                    <span class="fl"><a href="#" id="change" onclick="createCode()">换一张</a></span>
+                    <span><button id="button" onclick="checkCode()">提交</button></span>
+                    <div id="tishi"></div>
+                    <script>
+                        var code;
+                        function createCode() {
+                            code = "";
+                            var codeLength = 4;
+                            var randomCode = new Array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z");
+                            for (var i = 0; i < codeLength; i++) {
+                                var randomNumber = Math.floor(Math.random() * 36);
+                                code += randomCode[randomNumber];
+                            }
+                            document.getElementById("image").innerText = code;
+                        }
+                        window.onload = function () {
+                            createCode();
+                        }
+                        function checkCode() {
+                            var codeNow = code;
+                            alert('请输入验证码');
+                        }
+                        var inputNow = document.getElementById("in").value;
+                        alert(inputNow);
+                        if (codeNow == inputNow) {
+                            document.getElementById("tishi").innerHTML = "<p style='color: lawngreen;'>√验证正确</p>";
+
+                        } else {
+                            document.getElementById("tishi").innerHTML = "<p style='color: red;'>×验证失败</p>";
+                        }
+                    </script>
+                    <div class="register-but text-center">
+                        <input type="submit" value="提交">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!--footer-->
+    <div class="footer">
+        <div class="container">
+            <div class=text-center">
+                <p style="text-align: center">版权所有：<br>陈铭典 202110119114 信科一班<br>
+                    贾德超 202110119126 信科一班</p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
