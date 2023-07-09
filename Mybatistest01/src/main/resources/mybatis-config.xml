@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+    <properties resource="db.properties"></properties>
+    
+    <settings>
+        <!--开启 全局缓存 默认true-->
+        <setting name="cacheEnabled" value="true"/>
+        <!--开启 全局懒加载 默认是false-->
+        <setting name="lazyLoadingEnabled" value="true"></setting>
+        <!--开启 关联属性的懒加载 默认是false-->
+        <setting name="aggressiveLazyLoading" value="true"></setting>
+        <!--开启 驼峰映射-->
+        <setting name="mapUnderscoreToCamelCase" value="true"></setting>
+    </settings>
+
+    <typeAliases>
+        <!--第一种方式：为每一个实体配置别名-->
+<!--        <typeAlias type="com.jdc.pojo.User" alias="user"></typeAlias>-->
+        <!--第二种方式：包扫描 默认实体的类名就是别名 大小写不区分-->
+        <package name="com.jdc.pojo"></package>
+    </typeAliases>
+
+    <!--数据库环境配置 -->
+    <environments default="development">
+
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+
+        <environment id="test">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="123456"/>
+            </dataSource>
+        </environment>
+
+    </environments>
+
+    <mappers>
+        <!--第一种配置方法：配置xxxMapper.xml文件的位置-->
+        <!--<mapper resource="mapper/UserMapper.xml"/>-->
+<!--       约定大于配置-->
+
+        <!--第二种配置方法:配置接口的全路径
+            此处mapper配置的目的:将mapper.xml映射文件交给mybatis
+            mapper映射文件的路径 = 位置+映射文件名
+
+             二种规范：
+             1.映射文件的位置必须放在接口的同包目录下
+             2.映射文件名必须和接口同名
+             -->
+<!--        <mapper class="com.jdc.mapper.UserMapper"></mapper>-->
+
+        <!--第三种配置方法：包扫描-->
+<!--        <package name="com.jdc.mapper"></package>-->
+        <mapper resource="com/jdc/mapper/UserMapper.xml"></mapper>
+        <mapper resource="com/jdc/mapper/StudentMapper.xml"></mapper>
+        <!--第四种配置方法：绝对路径 不采用-->
+    </mappers>
+    
+</configuration>

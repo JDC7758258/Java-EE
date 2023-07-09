@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jdc.mapper.OrdersMapper">
+
+    <select id="findOrdersById" parameterType="Integer" resultMap="orderWithProductResult">
+        SELECT *
+        FROM tb_orders
+        WHERE id = #{id}
+    </select>
+
+    <resultMap id="orderWithProductResult" type="Orders">
+        <id property="id" column="id"></id>
+        <result column="number" property="number"></result>
+        <!--商品信息的映射-->
+        <collection property="productList" javaType="list" ofType="product" column="id"
+                    select="com.jdc.mapper.ProductMapper.findProductById"></collection>
+    </resultMap>
+
+    <select id="findOrdersById2" parameterType="Integer" resultMap="orderWithProductResult2">
+        SELECT o.*, p.*, o.id oid, p.id pid
+        FROM tb_orders o,
+             tb_product p,
+             tb_ordersitem oi
+        WHERE o.id = oi.orders_id
+          AND p.id = oi.product_id
+          AND o.id = #{id}
+    </select>
+    
+    <resultMap id="orderWithProductResult2" type="orders">
+        <id column="oid" property="id"></id>
+        <result property="number" column="number"></result>
+        <collection property="productList" javaType="list" ofType="product">
+            <id property="id" column="pid"></id>
+            <result property="name" column="name"></result>
+            <result property="price" column="price"></result>
+        </collection>
+    </resultMap>
+</mapper>

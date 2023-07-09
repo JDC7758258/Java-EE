@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jdc.mapper.PersonMapper">
+
+    <select id="findPersonById" parameterType="Integer" resultMap="IdCardWithPersonResult">
+        select *
+        from tb_person
+        WHERE id = #{id}
+    </select>
+
+    <resultMap id="IdCardWithPersonResult" type="person">
+        <id property="id" column="id"></id>
+        <result property="name" column="name"></result>
+        <result property="age" column="age"></result>
+        <result property="sex" column="sex"></result>
+        <association property="card" javaType="IdCard" column="card_id"
+                     select="com.jdc.mapper.IdCardMapper.findCodeById">
+        </association>
+    </resultMap>
+
+    <select id="findPersonById2" parameterType="Integer" resultMap="IdCardWithPersonResult2">
+        SELECT *, p.id pid, c.id cid
+        FROM tb_person P,
+             tb_idcard c
+        WHERE p.card_id = c.id
+          AND p.id = #{id}
+    </select>
+    <resultMap id="IdCardWithPersonResult2" type="person">
+        <id property="id" column="pid"></id>
+        <result property="name" column="name"></result>
+        <result property="age" column="age"></result>
+        <result property="sex" column="sex"></result>
+        <association property="card" javaType="IdCard">
+            <id property="id" column="cid"></id>
+            <result property="code" column="code"></result>
+        </association>
+    </resultMap>
+</mapper>

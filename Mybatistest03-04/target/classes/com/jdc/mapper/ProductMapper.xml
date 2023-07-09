@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jdc.mapper.ProductMapper">
+
+    <select id="findProductById" parameterType="Integer" resultType="Product">
+        SELECT *
+        FROM tb_product
+        WHERE id IN (SELECT product_id
+                     FROM tb_ordersitem
+                     WHERE orders_id = #{id})
+    </select>
+</mapper>
