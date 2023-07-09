@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jdc.mapper.CategoryMapper">
+
+    <select id="findCategoryWithProduct" resultMap="categoryWithProduct">
+        SELECT p.id pid, p.goodsName, p.price, c.id cid, c.typename
+        FROM category c,
+             product p
+        WHERE c.id = p.type
+          AND c.id = #{cid}
+    </select>
+
+    <resultMap id="categoryWithProduct" type="Category">
+        <id column="cid" property="id"></id>
+        <result column="typename" property="typename"></result>
+        <!--一对多-->
+        <collection property="productList" javaType="list" ofType="product">
+            <id column="pid" property="id"></id>
+            <result column="goodsName" property="goodsName"></result>
+            <result column="price" property="price"></result>
+
+        </collection>
+    </resultMap>
+</mapper>
