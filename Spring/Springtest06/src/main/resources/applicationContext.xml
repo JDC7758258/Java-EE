@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="helloSpring" class="com.jdc.HelloSpring">
+        <property name="userName" value="张三"></property>
+    </bean>
+
+    <!--
+        确定参数的
+        name属性: 通过参数的名字来确定参数（推荐）
+        type属性: 通过参数的类型来确定参数
+        index属性：通过参数的索引来确定参数
+
+        给属性赋值的
+        value: 用来给基本类型赋值
+        ref: 用来给引用类型进行赋值
+    -->
+
+    <!--依赖注入类型的两种方法     一:构造方法注入实现-->
+    <bean id="user1" class="com.jdc.User1">
+        <!--方法一-->
+        <!--            <constructor-arg name="id" value="1"></constructor-arg>-->
+        <!--            <constructor-arg name="username" value="张三"></constructor-arg>-->
+        <!--            <constructor-arg name="password" value="123"></constructor-arg>-->
+
+        <!--方法二-->
+        <!--            <constructor-arg type="java.lang.String" value="张三"></constructor-arg>-->
+        <!--            <constructor-arg type="java.lang.String" value="123"></constructor-arg>-->
+        <!--            <constructor-arg type="java.lang.Integer" value="1"></constructor-arg>-->
+
+        <!--方法三-->
+        <constructor-arg index="1" value="张三"></constructor-arg>
+        <constructor-arg index="2" value="123"></constructor-arg>
+        <constructor-arg index="0" value="1"></constructor-arg>
+    </bean>
+
+
+    <!--依赖注入类型的两种方法   二:属性setter方法注入实现-->
+    <bean id="user2" class="com.jdc.User2">
+        <!--name的值准确的讲并不是属性名,而是set方法去掉set关键字的名字
+            属性名 id ->setter方法setIdd();
+            setIdd去掉关键字set -> idd(驼峰命名)-->
+        <property name="id" value="2"></property>
+        <property name="username" value="李四"></property>
+        <property name="password" value="1234"></property>
+
+        <property name="user1" ref="user1"></property>
+    </bean>
+</beans>

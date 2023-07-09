@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--    <bean id="orderService" class="com.jdc.service.impl.OrderServiceImpl"></bean>-->
+
+    <!--    <bean id="bean1" class="com.jdc.beans.Bean1"></bean>-->
+    <!--    <bean name="bean2" class="com.jdc.beans.Bean2"></bean>-->
+
+    <!--    <bean id="bean2" class="com.jdc.factory.MyBean2Factory" factory-method="createBean"></bean>-->
+
+    <!--创建实例工厂对象-->
+    <!--    <bean id="myBean3Factory" class="com.jdc.factory.MyBean3Factory"></bean>-->
+    <!--    <bean id="bean3" factory-bean="myBean3Factory" factory-method="createBean"></bean>-->
+
+    <!--    <bean id="bean4" class="com.jdc.factory.MyBean4Factory"></bean>-->
+
+    <!--    <bean id="bean1" class="com.jdc.beans.Bean1" scope="prototype"></bean>-->
+
+    <bean id="user1" class="com.jdc.beans.User1">
+        <!--
+            DI(装配)：setter依赖注入
+            name:应该是set方法的名字（去掉set关键字的名字）
+        -->
+        <property name="id" value="1"></property>
+        <property name="password" value="123"></property>
+        <property name="username" value="张三"></property>
+    </bean>
+
+    <bean id="user2" class="com.jdc.beans.User2">
+        <constructor-arg name="id" value="2"></constructor-arg>
+        <constructor-arg name="username" value="李四"></constructor-arg>
+        <constructor-arg name="password" value="1234"></constructor-arg>
+    </bean>
+</beans>
